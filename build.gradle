@@ -60,6 +60,9 @@ ext {
     // Retrofit
     retrofitVersion = '2.3.0'
 
+    // OkHttpClien
+    okHttpVersion = '4.2.1'
+
     //Gson
     gsonVersion = '2.8.4'
 

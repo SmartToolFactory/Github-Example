@@ -29,7 +29,6 @@ data class RepoEntity(
     @ColumnInfo(name = "favorite")
     var isFavorite: Boolean
 
-
 )
 
 data class OwnerEntity(

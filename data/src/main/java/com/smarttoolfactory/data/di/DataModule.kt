@@ -1,6 +1,6 @@
 package com.smarttoolfactory.data.di
 
-class DataModule {
+import dagger.Module
 
-
-}
+@Module(includes = [NetworkModule::class, DatabaseModule::class])
+class DataModule
