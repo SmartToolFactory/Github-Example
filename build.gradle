@@ -7,7 +7,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
@@ -22,7 +22,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+
     }
 }
 
@@ -89,6 +89,6 @@ ext {
     rulesVersion = '1.0.1'
     truthVersion = '0.44'
     mockKVersion = '1.9.3'
-    mockWebServerVersion = '4.3.1"'
+    mockWebServerVersion = '4.3.1'
 
 }
