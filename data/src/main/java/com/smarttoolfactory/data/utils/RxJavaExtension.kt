@@ -1,5 +1,6 @@
 package com.smarttoolfactory.data.utils
 
+import com.smarttoolfactory.data.api.DataResult
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

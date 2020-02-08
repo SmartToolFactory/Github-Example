@@ -6,6 +6,9 @@ import androidx.room.PrimaryKey
 
 /**
  * Table for storing favorites repos selected. If repo id is equal to one of repos then they match.
+ *
+ * This class could have only repo id but i added more params to show favorite repos in different
+ * section
  */
 @Entity(tableName = "favorite")
 data class FavoriteRepoEntity(

@@ -1,4 +1,4 @@
-package com.smarttoolfactory.data.utils
+package com.smarttoolfactory.data.api
 
 /**
  * Class that retrieves the result from network or database

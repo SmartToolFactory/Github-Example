@@ -21,8 +21,6 @@ data class OwnerDTO(
     val ownerId: Int,
     @SerializedName("login")
     val login: String,
-    @SerializedName("url")
-    val url: String,
     @SerializedName("avatar_url")
     val avatarUrl: String
 )
