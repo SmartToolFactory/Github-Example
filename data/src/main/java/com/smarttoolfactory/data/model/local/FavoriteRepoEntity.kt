@@ -5,10 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Repos retrieved via REST is converted to [RepoEntity] to store in database for offline-first
+ * Table for storing favorites repos selected. If repo id is equal to one of repos then they match.
  */
-@Entity(tableName = "repo")
-data class RepoEntity(
+@Entity(tableName = "favorite")
+data class FavoriteRepoEntity(
 
     @PrimaryKey
     @ColumnInfo(name = "repo_id")
@@ -23,26 +23,12 @@ data class RepoEntity(
     @ColumnInfo(name = "open_issues_count")
     val openIssuesCount: Int,
 
-    @ColumnInfo(name = "owner")
-    val owner: OwnerEntity,
-
-    @ColumnInfo(name = "favorite")
-    var isFavorite: Boolean
-
-
-)
-
-data class OwnerEntity(
     @ColumnInfo(name = "owner_id")
     val ownerId: Int,
 
     @ColumnInfo(name = "login")
-    val login: String,
+    val ownerName: String,
 
     @ColumnInfo(name = "avatar_url")
-    val avatarUrl: String
+    val ownerAvatarUrl: String
 )
-
-
-
-

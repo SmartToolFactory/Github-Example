@@ -1,11 +1,10 @@
 package com.smarttoolfactory.data.source.local
 
 
-import com.smarttoolfactory.data.source.local.dao.RepoDao
 import com.smarttoolfactory.data.source.GithubDataSource
-import javax.inject.Inject
+import com.smarttoolfactory.data.source.local.dao.RepoDao
 
-class LocalRatesDataSource @Inject constructor(private val repoDao: RepoDao) :
+class LocalRatesDataSource constructor(private val repoDao: RepoDao) :
     GithubDataSource {
 
 }
