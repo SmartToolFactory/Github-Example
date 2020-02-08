@@ -2,7 +2,7 @@ package com.smarttoolfactory.data.api
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.smarttoolfactory.data.api.response.RepoDTO
+import com.smarttoolfactory.data.model.remote.response.RepoDTO
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient

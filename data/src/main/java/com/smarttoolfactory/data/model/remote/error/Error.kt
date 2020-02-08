@@ -1,4 +1,4 @@
-package com.smarttoolfactory.data.api.error
+package com.smarttoolfactory.data.model.remote.error
 
 import com.google.gson.annotations.SerializedName
 

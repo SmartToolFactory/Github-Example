@@ -1,4 +1,4 @@
-package com.smarttoolfactory.data.api.response
+package com.smarttoolfactory.data.model.remote.response
 
 import com.google.gson.annotations.SerializedName
 
