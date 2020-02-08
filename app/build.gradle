@@ -1,0 +1,183 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.smarttoolfactory.githubexample"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+        }
+
+        release {
+            // Enables code shrinking, obfuscation, and optimization for only
+            // your project's release build currencyType.
+            minifyEnabled true
+
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.
+            shrinkResources true
+
+            // Includes the default ProGuard rules files that are packaged with
+            // the Android Gradle plugin. To learn more, go to the section about
+            // R8 configuration files.
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+
+    }
+
+    // Specifies one flavor dimension.
+    flavorDimensions "version"
+    productFlavors {
+        demo {
+            // Assigns this product flavor to the "version" flavor dimension.
+            // If you are using only one dimension, this property is optional,
+            // and the plugin automatically assigns all the module's flavors to
+            // that dimension.
+            dimension "version"
+            applicationIdSuffix ".demo"
+            versionNameSuffix "-demo"
+        }
+        full {
+            dimension "version"
+            applicationIdSuffix ".full"
+            versionNameSuffix "-full"
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
+
+    // AppCompat
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    // Material
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    // ConstraintLayout
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    // RecyclerView
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.9.0")
+    kapt("com.github.bumptech.glide:compiler:4.9.0")
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
+
+    implementation 'com.android.support:multidex:2.0.1'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
+
+    // Gson
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+
+    // Room
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    // For Kotlin use kapt instead of annotationProcessor
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
+
+    // Dagger Core dependencies
+    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+    // Dagger Android dependencies
+    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    // RxAndroid
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
+
+    // Chuck
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
+    // **** TESTING ****
+
+    // Dependencies for local unit tests
+
+    /*
+        Unit Tests
+     */
+//     (Required) Writing and executing Unit Tests on the JUnit Platform
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.4.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.4.0"
+
+    // (Optional) If you need "Parameterized Tests"
+//    testImplementation "org.junit.jupiter:junit-jupiter-params:5.4.0"
+
+    // (Optional) If you also have JUnit 4-based tests
+//    testImplementation "junit:junit:4.12"
+//    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.3.1"
+
+//    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+//    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+
+    // AndroidX Test - JVM testing
+//    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+//    testImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
+
+    // MockK
+    testImplementation "io.mockk:mockk:1.9.3"
+
+    // Mock Web Server
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.3.1")
+
+    /*
+        Instrumented Tests
+     */
+    // AndroidX Test - Instrumented testing
+    androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    // MockK
+    androidTestImplementation "io.mockk:mockk-android:1.9.3"
+    // Espresso
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+
+}
