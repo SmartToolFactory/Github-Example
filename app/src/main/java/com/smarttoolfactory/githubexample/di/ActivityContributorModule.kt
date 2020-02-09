@@ -10,7 +10,7 @@ abstract class ActivityContributorModule {
     /**
     Defines which fragments will be used by [MainActivity]
      */
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [FragmentContributorModule::class])
     abstract fun contributeMainActivity(): MainActivity
 
 

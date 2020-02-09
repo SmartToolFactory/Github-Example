@@ -66,7 +66,7 @@ class GithubApiTest {
         // WHEN
         githubApi
             .getRepoList("smarttoolfactory")
-            .blockingFirst()
+            .blockingGet()
 
         val request = mockWebServer.takeRequest()
 
@@ -84,7 +84,7 @@ class GithubApiTest {
         // WHEN
         val repos = githubApi
             .getRepoList("smarttoolfactory")
-            .blockingFirst()
+            .blockingGet()
 
         val owner = repos[0].owner
 
@@ -162,7 +162,7 @@ class GithubApiTest {
 
                 githubApi
                     .getRepoList("smarttoolfactory")
-                    .blockingFirst()
+                    .blockingGet()
 
             }
 

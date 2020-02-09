@@ -1,13 +1,21 @@
 package com.smarttoolfactory.githubexample
 
 import android.os.Bundle
-import dagger.android.support.DaggerAppCompatActivity
+import com.smarttoolfactory.githubexample.base.activity.BaseDataBindingActivity
+import com.smarttoolfactory.githubexample.databinding.ActivityMainBinding
 
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : BaseDataBindingActivity<ActivityMainBinding>() {
+
+
+    override val layoutId: Int
+        get() = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+
     }
+
+
 }

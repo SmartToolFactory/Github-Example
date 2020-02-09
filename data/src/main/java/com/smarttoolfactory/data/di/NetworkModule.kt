@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.readystatesoftware.chuck.ChuckInterceptor
 import com.smarttoolfactory.data.api.GithubApi
+import com.smarttoolfactory.data.constant.BASE_URL
 import dagger.Module
 import dagger.Provides
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
@@ -44,11 +45,11 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideGithubApi(
-        okHttpClient: OkHttpClient, baseUrl: String,
+        okHttpClient: OkHttpClient,
         gson: Gson
     ): GithubApi {
         val retrofitBuilder = Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
