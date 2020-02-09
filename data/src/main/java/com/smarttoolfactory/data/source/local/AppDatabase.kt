@@ -8,7 +8,6 @@ import com.smarttoolfactory.data.model.local.FavoriteRepoEntity
 import com.smarttoolfactory.data.model.local.RepoEntity
 import com.smarttoolfactory.data.source.local.dao.FavoriteRepoDao
 import com.smarttoolfactory.data.source.local.dao.RepoDao
-import com.smarttoolfactory.data.source.local.typeconvertors.RoomTypeConverter
 
 /**
  * Room Database that contains the [RepoEntity], and [FavoriteRepoEntity] entity tables.
@@ -19,7 +18,6 @@ import com.smarttoolfactory.data.source.local.typeconvertors.RoomTypeConverter
     version = DATABASE_VERSION,
     exportSchema = false
 )
-@TypeConverters(RoomTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun repoDao(): RepoDao

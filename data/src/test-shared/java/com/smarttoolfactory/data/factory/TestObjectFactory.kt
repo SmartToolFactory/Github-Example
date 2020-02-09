@@ -1,7 +1,6 @@
 package com.smarttoolfactory.data.factory
 
 import com.smarttoolfactory.data.model.local.FavoriteRepoEntity
-import com.smarttoolfactory.data.model.local.OwnerEntity
 import com.smarttoolfactory.data.model.local.RepoEntity
 import com.smarttoolfactory.data.model.remote.response.OwnerDTO
 import com.smarttoolfactory.data.model.remote.response.RepoDTO
@@ -24,7 +23,8 @@ object TestObjectFactory {
     private const val openIssuesCount = 0
 
 
-    fun getOwnerDTO(): OwnerDTO = OwnerDTO(ownerId = ownerId, login = login, avatarUrl = avatarUrl)
+    fun getMockOwnerDTO(): OwnerDTO =
+        OwnerDTO(ownerId = ownerId, login = login, avatarUrl = avatarUrl)
 
 
     fun getMockRepoDTO(): RepoDTO =
@@ -33,24 +33,23 @@ object TestObjectFactory {
             name = repoName,
             stars = repoStars,
             issueCount = openIssuesCount,
-            owner = getOwnerDTO()
+            owner = getMockOwnerDTO()
         )
 
 
-    fun getMockOwnerEntity(): OwnerEntity =
-        OwnerEntity(ownerId = ownerId, login = login, avatarUrl = avatarUrl)
-
-    fun getMockRepoEntity(isFavorite: Boolean): RepoEntity =
+    fun getMockRepoEntity(isFavorite: Boolean = false): RepoEntity =
         RepoEntity(
             repoId = repoId,
             repoName = repoName,
             starCount = repoStars,
             openIssuesCount = openIssuesCount,
-            owner = getMockOwnerEntity(),
+            ownerId = ownerId,
+            login = login,
+            avatarUrl = avatarUrl,
             isFavorite = isFavorite
         )
 
-    fun getFavoriteRepoEntity(): FavoriteRepoEntity = FavoriteRepoEntity(
+    fun getMockFavoriteRepoEntity(): FavoriteRepoEntity = FavoriteRepoEntity(
         repoId = repoId,
         repoName = repoName,
         starCount = repoStars,

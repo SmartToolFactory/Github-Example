@@ -23,15 +23,9 @@ data class RepoEntity(
     @ColumnInfo(name = "open_issues_count")
     val openIssuesCount: Int,
 
-    @ColumnInfo(name = "owner")
-    val owner: OwnerEntity,
-
     @ColumnInfo(name = "favorite")
-    var isFavorite: Boolean
+    var isFavorite: Boolean,
 
-)
-
-data class OwnerEntity(
     @ColumnInfo(name = "owner_id")
     val ownerId: Int,
 
@@ -40,7 +34,10 @@ data class OwnerEntity(
 
     @ColumnInfo(name = "avatar_url")
     val avatarUrl: String
+
 )
+
+
 
 
 

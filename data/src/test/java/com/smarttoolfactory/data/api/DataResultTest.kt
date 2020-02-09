@@ -20,6 +20,8 @@ class DataResultTest {
 
         // THEN
         assertEquals(dataResult.data, data)
+        assertEquals(dataResult.status, Status.SUCCESS)
+
     }
 
     @Test
@@ -32,8 +34,9 @@ class DataResultTest {
         val dataResult = DataResult.Error<String>(exception)
 
         // THEN
-        assertThat(dataResult.error.message, `is`("test"))
+        assertThat(dataResult.error?.message, `is`("test"))
         assertEquals(dataResult.error, exception)
+        assertEquals(dataResult.status, Status.ERROR)
 
     }
 
@@ -42,9 +45,9 @@ class DataResultTest {
 
         val dataResult = DataResult.Loading<String>()
 
-        assertNotEquals(dataResult.javaClass, DataResult.Success::class.java)
-        assertNotEquals(dataResult.javaClass, DataResult.Error::class.java)
         assertEquals(dataResult.javaClass, DataResult.Loading::class.java)
+        assertEquals(dataResult.status, Status.LOADING)
+
 
     }
 

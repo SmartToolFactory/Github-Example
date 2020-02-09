@@ -58,7 +58,7 @@ class GithubApiTest {
     }
 
     @Test
-    fun `Request has correct url`() {
+    fun `Request should have correct url`() {
 
         // GIVEN
         enqueueResponse(200, "repos.json")
@@ -76,7 +76,7 @@ class GithubApiTest {
     }
 
     @Test
-    fun `Repos return successfully`() {
+    fun `Service should return repo list`() {
 
         // GIVEN
         enqueueResponse(200, "repos.json")
@@ -101,7 +101,7 @@ class GithubApiTest {
 
 
     @Test
-    fun `Repos return successfully with TestObserver`() {
+    fun `Repos should return repo list with TestObserver`() {
 
         // GIVEN
         enqueueResponse(200, "repos.json")
@@ -149,7 +149,7 @@ class GithubApiTest {
        HttpException is wrapped in RuntimeException by RxJava
      */
     @Test
-    fun `Server down returns 500 error`() {
+    fun `Server down should return 500 error`() {
 
         // GIVEN
         mockWebServer.enqueue(MockResponse().setResponseCode(500))
@@ -175,7 +175,7 @@ class GithubApiTest {
     }
 
     @Test
-    fun `Invalid user name returns 404 error`() {
+    fun `Invalid user name should return 404 error`() {
 
         // GIVEN
         enqueueResponse(404, "repos.json")

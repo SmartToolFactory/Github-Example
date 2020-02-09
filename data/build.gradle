@@ -25,6 +25,11 @@ android {
         }
     }
 
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-shared/java"
+        test.java.srcDirs += "src/test-shared/java"
+    }
+
 }
 
 dependencies {
@@ -97,6 +102,7 @@ dependencies {
 //    testImplementation "org.robolectric:robolectric:$robolectricVersion"
 
     // AndroidX Test - JVM testing
+    // InstantTaskExecutorRule is used with core
 //    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
 //    testImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
 
@@ -111,6 +117,8 @@ dependencies {
      */
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
+    // InstantTaskExecutorRule is used with core
+    androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 
     // MockK
