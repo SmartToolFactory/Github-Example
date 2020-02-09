@@ -20,9 +20,6 @@ import com.smarttoolfactory.githubexample.R
 @BindingAdapter("app:items")
 fun RecyclerView.setItems(items: List<RepoListItem>?) {
 
-//    itemAnimator?.changeDuration = 0
-//    (itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
-
     items?.let {
         (adapter as ListAdapter<RepoListItem, *>)?.submitList(items)
 

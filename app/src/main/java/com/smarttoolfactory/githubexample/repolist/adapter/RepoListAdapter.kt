@@ -48,7 +48,7 @@ class RepoListAdapter(
 
     /**
      * Add click listener here to prevent setting listener after a ViewHolder every time
-     * viewholder is scrolled and onBindViewHolder is called
+     * ViewHolder is scrolled and onBindViewHolder is called
      */
     private fun onViewHolderCreated(
         viewHolder: RecyclerView.ViewHolder,

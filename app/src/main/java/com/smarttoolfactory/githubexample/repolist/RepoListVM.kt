@@ -1,34 +1,33 @@
 package com.smarttoolfactory.githubexample.repolist
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.smarttoolfactory.data.api.Status
+import com.smarttoolfactory.data.utils.listenOnMain
 import com.smarttoolfactory.domain.GetReposUseCase
 import com.smarttoolfactory.domain.model.RepoListItem
 import com.smarttoolfactory.githubexample.base.viewmodel.BaseViewModel
 import com.smarttoolfactory.githubexample.model.ViewState
+import io.reactivex.Observable
+import java.lang.Thread.sleep
+import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCase) :
     BaseViewModel() {
 
-    private val _items = MutableLiveData<List<RepoListItem>>()
-
     val query = String
 
-    val items: LiveData<List<RepoListItem>> = _items
 
     val viewState = MutableLiveData<ViewState<RepoListItem>>()
 
-    init {
-        getUserRepos()
-    }
 
     fun onRepoClicked(repo: RepoListItem) {
-
+            println("ViewModel onRepoClicked() ${repo.repoName}")
     }
 
-    fun onFavoriteRepoStatusChanded(repo: RepoListItem) {
+    fun onFavoriteRepoStatusChanged(repo: RepoListItem) {
+        println("ViewModel onFavoriteRepoStatusChanded() ${repo.repoName}")
 
     }
 
@@ -40,13 +39,17 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
             error = null
         )
 
-        _items.value = getRepoListItems()
+    val disposable =   Observable.timer(2, TimeUnit.SECONDS)
+           .listenOnMain()
+           .subscribe {
+               viewState.value = ViewState(
+                   status = Status.SUCCESS,
+                   data = getRepoListItems(),
+                   error = null
+               )
+       }
 
-        viewState.value = ViewState(
-            status = Status.SUCCESS,
-            data = getRepoListItems(),
-            error = null
-        )
+
     }
 
 
@@ -70,8 +73,9 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
 
             val listRepos = arrayListOf<RepoListItem>()
 
+            val random = 2 + Random().nextInt(9)
 
-            for (i in 0..5) {
+            for (i in 0..random) {
 
                 val repoListItem = RepoListItem(
                     repoId = repoId,
@@ -88,7 +92,6 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
             }
 
             return listRepos
-
 
         }
 

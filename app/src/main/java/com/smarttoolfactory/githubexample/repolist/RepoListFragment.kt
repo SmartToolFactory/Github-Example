@@ -20,7 +20,6 @@ class RepoListFragment : BaseFragment<FragmentRepoListBinding>() {
         repoListVM =
             ViewModelProvider(activity!!, viewModelFactory).get(RepoListVM::class.java)
 
-
         val linearLayoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
@@ -30,7 +29,7 @@ class RepoListFragment : BaseFragment<FragmentRepoListBinding>() {
             this.layoutManager = linearLayoutManager
             // Set RecyclerViewAdapter
             this.adapter =
-                RepoListAdapter(repoListVM::onRepoClicked, repoListVM::onFavoriteRepoStatusChanded)
+                RepoListAdapter(repoListVM::onRepoClicked, repoListVM::onFavoriteRepoStatusChanged)
         }
     }
 
