@@ -1,5 +1,6 @@
-package com.smarttoolfactory.githubexample.di
+package com.smarttoolfactory.githubexample.di.module
 
+import com.smarttoolfactory.githubexample.di.scope.FragmentScope
 import com.smarttoolfactory.githubexample.repodetail.RepoDetailFragment
 import com.smarttoolfactory.githubexample.repolist.RepoListFragment
 import dagger.Module

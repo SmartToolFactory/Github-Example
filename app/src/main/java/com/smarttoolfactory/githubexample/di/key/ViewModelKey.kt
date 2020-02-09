@@ -1,4 +1,4 @@
-package com.smarttoolfactory.githubexample.di
+package com.smarttoolfactory.githubexample.di.key
 
 
 import androidx.lifecycle.ViewModel

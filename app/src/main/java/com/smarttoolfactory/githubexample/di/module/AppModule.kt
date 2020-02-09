@@ -1,4 +1,4 @@
-package com.smarttoolfactory.githubexample.di
+package com.smarttoolfactory.githubexample.di.module
 
 import com.smarttoolfactory.data.di.DataModule
 import dagger.Module

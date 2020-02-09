@@ -1,8 +1,10 @@
-package com.smarttoolfactory.githubexample.di
+package com.smarttoolfactory.githubexample.di.component
 
 
 import android.app.Application
 import com.smarttoolfactory.githubexample.MyApplication
+import com.smarttoolfactory.githubexample.di.module.ActivityContributorModule
+import com.smarttoolfactory.githubexample.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

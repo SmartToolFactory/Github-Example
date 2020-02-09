@@ -2,7 +2,7 @@ package com.smarttoolfactory.githubexample
 
 import android.content.Context
 import androidx.multidex.MultiDex
-import com.smarttoolfactory.githubexample.di.DaggerAppComponent
+import com.smarttoolfactory.githubexample.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 

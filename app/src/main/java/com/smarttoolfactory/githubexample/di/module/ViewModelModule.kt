@@ -1,8 +1,9 @@
-package com.smarttoolfactory.githubexample.di
+package com.smarttoolfactory.githubexample.di.module
 
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.smarttoolfactory.githubexample.di.key.ViewModelKey
 import com.smarttoolfactory.githubexample.repodetail.RepoDetailVM
 import com.smarttoolfactory.githubexample.repolist.RepoListVM
 import com.smarttoolfactory.githubexample.viewmodel.CustomViewModelFactory
