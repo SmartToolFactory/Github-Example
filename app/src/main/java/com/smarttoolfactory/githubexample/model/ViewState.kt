@@ -5,8 +5,8 @@ import com.smarttoolfactory.data.api.Status
 
 class ViewState<T>(
     val status: Status,
-    val error: Throwable? = null,
-    val data: List<T>? = null
+    val data: List<T>? = null,
+    val error: Throwable? = null
 ) {
     fun getRepos() = data ?: mutableListOf()
 

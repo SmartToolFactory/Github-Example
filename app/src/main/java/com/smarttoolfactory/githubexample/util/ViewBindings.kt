@@ -1,5 +1,6 @@
 package com.smarttoolfactory.githubexample.util
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
@@ -54,5 +55,14 @@ fun setImageUrl(view: ImageView, path: String?) {
     } catch (e: Exception) {
 
     }
+}
+
+/**
+ * Display or hide a view based on a condition
+ */
+@BindingAdapter("visibilityBasedOn")
+fun View.visibilityBasedOn(condition: Boolean) {
+    visibility = if (condition) View.VISIBLE else View.GONE
+
 }
 

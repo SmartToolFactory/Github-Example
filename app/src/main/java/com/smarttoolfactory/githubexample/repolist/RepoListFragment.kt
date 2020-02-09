@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.smarttoolfactory.githubexample.R
 import com.smarttoolfactory.githubexample.base.fragment.BaseFragment
 import com.smarttoolfactory.githubexample.databinding.FragmentRepoListBinding
+import com.smarttoolfactory.githubexample.repolist.adapter.RepoListAdapter
 
 class RepoListFragment : BaseFragment<FragmentRepoListBinding>() {
 
@@ -28,8 +29,8 @@ class RepoListFragment : BaseFragment<FragmentRepoListBinding>() {
         dataBinding.recyclerView.apply {
             this.layoutManager = linearLayoutManager
             // Set RecyclerViewAdapter
-            // TODO Set Adapter
-//            this.adapter = repoListAdapter
+            this.adapter =
+                RepoListAdapter(repoListVM::onRepoClicked, repoListVM::onFavoriteRepoStatusChanded)
         }
     }
 
