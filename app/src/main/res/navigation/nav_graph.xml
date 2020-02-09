@@ -28,8 +28,5 @@
         android:label="RepoDetailFragment"
         tools:layout="@layout/fragment_repo_detail">
 
-        <argument android:name="repoData"
-            app:argType="com.smarttoolfactory.domain.model.RepoListItem"/>
-
     </fragment>
 </navigation>

@@ -85,8 +85,6 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding> : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Toast.makeText(activity!!, "BaseFragment: $this", Toast.LENGTH_SHORT).show()
         bindViews()
     }
 
