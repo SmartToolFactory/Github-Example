@@ -4,11 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.smarttoolfactory.data.factory.TestObjectFactory
+import com.smarttoolfactory.data.model.local.FavoriteRepoEntity
+import com.smarttoolfactory.data.model.local.RepoEntity
 import com.smarttoolfactory.data.source.local.AppDatabase
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import io.reactivex.observers.TestObserver
+import org.junit.*
 import org.junit.runner.RunWith
 
 
@@ -53,86 +54,53 @@ class FavoriteRepoDaoTest {
     @Test
     fun shouldSaveSelectedRepoToFavorites() {
 
+        // GIVEN
+        val testObserver = TestObserver<List<FavoriteRepoEntity>>()
+        val favoriteRepoEntity = TestObjectFactory.getMockFavoriteRepoEntity()
+
+        // WHEN
+        val id = favoriteRepoDao.insertMaybe(favoriteRepoEntity).blockingGet().toInt()
+        favoriteRepoDao.getFavoriteRepos().subscribe(testObserver)
+
+        // THEN
+        // Assert that subscribed
+        testObserver.assertSubscribed()
+
+        //🔥🔥 Block and wait for Observable to terminate
+        testObserver.awaitTerminalEvent()
+
+        //Assert TestObserver called onComplete()
+        testObserver.assertComplete()
+
+        //Assert there were no errors
+        testObserver.assertNoErrors()
+        val actual = testObserver.values()[0][0]
+        Assert.assertEquals(id, actual.repoId)
+
+        // Dispose
+        testObserver.dispose()
+
     }
 
     @Test
     fun shouldDeleteSelectedRepoFromFavorites() {
 
+        // GIVEN
+        val favoriteRepoEntity = TestObjectFactory.getMockFavoriteRepoEntity()
+        favoriteRepoDao.insertCompletable(favoriteRepoEntity).blockingAwait()
+
+
+        // WHEN
+        favoriteRepoDao.delete(favoriteRepoEntity).blockingGet()
+
+        // THEN
+        favoriteRepoDao.getFavoriteRepos()
+            .test()
+            // check that there's no repo emitted
+            .assertValue {
+                it.isEmpty()
+            }
+            .dispose()
     }
 
 }
-
-
-/*
-
-class UserDaoTest {
-
-    @get:Rule var instantTaskExecutorRule = InstantTaskExecutorRule()
-
-    private lateinit var database: UsersDatabase
-
-    @Before fun initDb() {
-        // using an in-memory database because the information stored here disappears after test
-        database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
-                UsersDatabase::class.java)
-                // allowing main thread queries, just for testing
-                .allowMainThreadQueries()
-                .build()
-    }
-
-    @After fun closeDb() {
-        database.close()
-    }
-
-    @Test fun getUsersWhenNoUserInserted() {
-        database.userDao().getUserById("123")
-                .test()
-                .assertNoValues()
-    }
-
-    @Test fun insertAndGetUser() {
-        // When inserting a new user in the data source
-        database.userDao().insertUser(USER).blockingAwait()
-
-        // When subscribing to the emissions of the user
-        database.userDao().getUserById(USER.id)
-                .test()
-                // assertValue asserts that there was only one emission of the user
-                .assertValue { it.id == USER.id && it.userName == USER.userName }
-    }
-
-    @Test fun updateAndGetUser() {
-        // Given that we have a user in the data source
-        database.userDao().insertUser(USER).blockingAwait()
-
-        // When we are updating the name of the user
-        val updatedUser = User(USER.id, "new username")
-        database.userDao().insertUser(updatedUser).blockingAwait()
-
-        // When subscribing to the emissions of the user
-        database.userDao().getUserById(USER.id)
-                .test()
-                // assertValue asserts that there was only one emission of the user
-                .assertValue { it.id == USER.id && it.userName == "new username" }
-    }
-
-    @Test fun deleteAndGetUser() {
-        // Given that we have a user in the data source
-        database.userDao().insertUser(USER).blockingAwait()
-
-        //When we are deleting all users
-        database.userDao().deleteAllUsers()
-        // When subscribing to the emissions of the user
-        database.userDao().getUserById(USER.id)
-                .test()
-                // check that there's no user emitted
-                .assertNoValues()
-    }
-
-    companion object {
-        private val USER = User("id", "username")
-    }
-}
-
-
- */

@@ -19,6 +19,13 @@ interface RepoDao : BaseDao<RepoEntity> {
     @Query("SELECT * FROM repo WHERE  login =:user")
     fun getRepos(user: String): Single<List<RepoEntity>>
 
+    /**
+     * Get list of repos to from database. Returns empty list, not null if it's empty
+     */
+    @Query("SELECT * FROM repo")
+    fun getRepos(): Single<List<RepoEntity>>
+
     @Query("DELETE FROM repo")
     fun deleteAll(): Completable
+
 }
