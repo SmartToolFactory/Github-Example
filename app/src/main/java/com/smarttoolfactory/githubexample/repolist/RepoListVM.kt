@@ -21,7 +21,7 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
     val viewState = MutableLiveData<ViewState<RepoListItem>>()
 
     init {
-        getUserRepos("")
+        getUserRepos()
     }
 
     fun onRepoClicked(repo: RepoListItem) {
@@ -32,7 +32,7 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
 
     }
 
-    fun getUserRepos(user: String) {
+    fun getUserRepos() {
 
         viewState.value = ViewState(
             status = Status.LOADING,

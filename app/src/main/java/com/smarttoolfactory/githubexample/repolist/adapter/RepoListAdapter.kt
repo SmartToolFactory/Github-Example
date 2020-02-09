@@ -11,6 +11,7 @@ import com.smarttoolfactory.domain.model.RepoListItem
 import com.smarttoolfactory.githubexample.BR
 import com.smarttoolfactory.githubexample.R
 import kotlinx.android.synthetic.main.fragment_repo_detail.view.*
+import kotlinx.android.synthetic.main.item_repo.view.*
 
 
 /**
@@ -20,7 +21,6 @@ class RepoListAdapter(
 
     private val onItemClicked: (RepoListItem) -> Unit,
     private val onFavoriteStarClicked: (RepoListItem) -> Unit
-
 
 ) :
     ListAdapter<RepoListItem, RepoListAdapter.CustomViewHolder<RepoListItem>>(
@@ -59,10 +59,9 @@ class RepoListAdapter(
             onItemClicked(getItem(viewHolder.adapterPosition))
         }
 
-        binding.root.iv_repo_avatar.setOnClickListener {
+        binding.root.btn_favorite_repo.setOnClickListener {
             onFavoriteStarClicked(getItem(viewHolder.adapterPosition))
         }
-
 
     }
 
@@ -71,7 +70,6 @@ class RepoListAdapter(
         val item = getItem(position)
         holder.bindTo(item)
     }
-
 
     class CustomViewHolder<T> constructor(
         private val binding: ViewDataBinding
@@ -82,7 +80,7 @@ class RepoListAdapter(
             item: T
         ) {
 
-            // Bint item to layout to dispatch data to layout
+            // Bind item to layout to dispatch data to layout
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
 

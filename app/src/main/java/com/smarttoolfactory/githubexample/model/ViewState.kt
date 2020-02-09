@@ -8,8 +8,6 @@ class ViewState<T>(
     val data: List<T>? = null,
     val error: Throwable? = null
 ) {
-    fun getRepos() = data ?: mutableListOf()
-
     fun isLoading() = status == Status.LOADING
 
     fun getErrorMessage() = error?.message

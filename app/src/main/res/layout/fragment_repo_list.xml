@@ -22,18 +22,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/username"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_seach_repo"
-            app:layout_constraintEnd_toStartOf="@+id/btn_seach_repo"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_search_repo"
+            app:layout_constraintEnd_toStartOf="@+id/btn_search_repo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_seach_repo"
+            app:layout_constraintTop_toTopOf="@+id/btn_search_repo"
             app:layout_constraintWidth_percent="0.6" />
 
         <Button
-            android:id="@+id/btn_seach_repo"
+            android:id="@+id/btn_search_repo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/submit"
+            android:onClick="@{()-> viewModel.getUserRepos()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.3" />
@@ -42,12 +43,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="24dp"
+            app:items="@{viewModel.viewState.data}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:items="@{viewModel.items}"
-            app:layout_constraintTop_toBottomOf="@+id/btn_seach_repo" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_search_repo" />
 
 
         <TextView
@@ -56,6 +58,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            visibilityBasedOn="@{viewModel.viewState.shouldShowErrorMessage()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recycler_view" />
 
@@ -66,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
+            visibilityBasedOn="@{viewModel.viewState.loading}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recycler_view" />

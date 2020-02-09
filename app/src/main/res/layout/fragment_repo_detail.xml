@@ -62,7 +62,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_star_count"
             tools:text="Open Issues: 3" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
