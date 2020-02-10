@@ -2,13 +2,16 @@ package com.smarttoolfactory.githubexample.main
 
 import androidx.lifecycle.MutableLiveData
 import com.smarttoolfactory.common.SingleLiveEvent
-import com.smarttoolfactory.domain.model.RepoListItem
 import com.smarttoolfactory.githubexample.base.viewmodel.BaseViewModel
 import javax.inject.Inject
 
+/**
+ * ViewModel for setting Toolbar title and drawable src. This is for demonstration purposes.
+ *
+ */
 class ToolbarVM @Inject constructor() : BaseViewModel() {
 
-    var title = "Home"
+    var toolbarTitle = SingleLiveEvent<String>()
     /**
      * LiveData to set toolbar image src to selected or unselected
      */
@@ -30,7 +33,6 @@ class ToolbarVM @Inject constructor() : BaseViewModel() {
         // Signal observer of this live data to update favorite status of repo in db should change
         saveFavRepoToDb.value = favRepoStatus
     }
-
 
 
 }

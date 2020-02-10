@@ -45,7 +45,7 @@ class RepoDetailFragment : BaseFragment<FragmentRepoDetailBinding>() {
             ViewModelProvider(activity!!, viewModelFactory).get(ToolbarVM::class.java)
 
         repoItem?.repoName?.let {
-            toolbarVM.title = it
+            toolbarVM.toolbarTitle.value = it
         }
 
         toolbarVM.favRepoImgSelected.value = repoItem?.isFavorite

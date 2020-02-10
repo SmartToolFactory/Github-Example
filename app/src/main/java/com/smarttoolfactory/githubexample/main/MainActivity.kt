@@ -8,13 +8,15 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.smarttoolfactory.common.observe
 import com.smarttoolfactory.githubexample.R
 import com.smarttoolfactory.githubexample.base.activity.BaseActivity
 import com.smarttoolfactory.githubexample.databinding.ActivityMainBinding
 
-
 /**
- * 🔥 MainActivity has toolbar to demonstrate Toolbar with Navigation components.
+ * 🔥 MainActivity has toolbar to demonstrate Toolbar with Navigation components and
+ * ViewModel that is shared by both Activity and Fragment.
+ *
  * Building fragment layouts with their own Toolbar is simpler than this implementation.
  */
 class MainActivity : BaseActivity<ActivityMainBinding, ToolbarVM>() {
@@ -37,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, ToolbarVM>() {
         setUpToolbar(navController, dataBinding.toolbar)
 
         listenForNavigationEvents(navController, dataBinding.toolbar)
+
 
     }
 
@@ -63,9 +66,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, ToolbarVM>() {
                 toolbar?.title = "Home"
                 dataBinding.btnFavoriteRepo.visibility = View.GONE
             } else {
-                toolbar?.title = viewModel.title
                 dataBinding.btnFavoriteRepo.visibility = View.VISIBLE
             }
+        }
+
+        observe(viewModel.toolbarTitle) {
+            toolbar?.title = it
         }
     }
 
