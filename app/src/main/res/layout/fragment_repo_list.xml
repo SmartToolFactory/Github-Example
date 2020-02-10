@@ -22,6 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/username"
+            android:text="@={viewModel.query}"
             app:layout_constraintBottom_toBottomOf="@+id/btn_search_repo"
             app:layout_constraintEnd_toStartOf="@+id/btn_search_repo"
             app:layout_constraintStart_toStartOf="parent"

@@ -16,7 +16,7 @@ import javax.inject.Inject
 class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCase) :
     BaseViewModel() {
 
-    val query = String
+    val query = MutableLiveData<String>()
 
     val goToDetailScreen = SingleLiveEvent<RepoListItem>()
 
@@ -32,23 +32,6 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
     }
 
     fun getUserRepos() {
-
-        viewState.value = ViewState(
-            status = Status.LOADING,
-            data = null,
-            error = null
-        )
-
-        val disposable = Observable.timer(2, TimeUnit.SECONDS)
-            .listenOnMain()
-            .subscribe {
-                viewState.value = ViewState(
-                    status = Status.SUCCESS,
-                    data = getRepoListItems(),
-                    error = null
-                )
-            }
-
 
     }
 

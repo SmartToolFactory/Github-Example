@@ -1,6 +1,7 @@
 package com.smarttoolfactory.data.api
 
 import com.smarttoolfactory.data.model.remote.response.RepoDTO
+import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,6 +12,6 @@ import retrofit2.http.Path
 interface GithubApi {
 
     @GET("users/{login}/repos")
-    fun getRepoList(@Path("login") login: String): Single<List<RepoDTO>>
+    fun getRepoList(@Path("login") login: String): Observable<List<RepoDTO>>
 
 }
