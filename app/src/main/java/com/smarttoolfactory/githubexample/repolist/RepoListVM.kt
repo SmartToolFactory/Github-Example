@@ -1,6 +1,7 @@
 package com.smarttoolfactory.githubexample.repolist
 
 import androidx.lifecycle.MutableLiveData
+import com.smarttoolfactory.common.SingleLiveEvent
 import com.smarttoolfactory.data.api.Status
 import com.smarttoolfactory.data.utils.listenOnMain
 import com.smarttoolfactory.domain.GetReposUseCase
@@ -8,7 +9,6 @@ import com.smarttoolfactory.domain.model.RepoListItem
 import com.smarttoolfactory.githubexample.base.viewmodel.BaseViewModel
 import com.smarttoolfactory.githubexample.model.ViewState
 import io.reactivex.Observable
-import java.lang.Thread.sleep
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -18,16 +18,16 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
 
     val query = String
 
+    val goToDetailScreen = SingleLiveEvent<RepoListItem>()
 
     val viewState = MutableLiveData<ViewState<RepoListItem>>()
 
 
     fun onRepoClicked(repo: RepoListItem) {
-            println("ViewModel onRepoClicked() ${repo.repoName}")
+        goToDetailScreen.value = repo
     }
 
     fun onFavoriteRepoStatusChanged(repo: RepoListItem) {
-        println("ViewModel onFavoriteRepoStatusChanded() ${repo.repoName}")
 
     }
 
@@ -39,15 +39,15 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
             error = null
         )
 
-    val disposable =   Observable.timer(2, TimeUnit.SECONDS)
-           .listenOnMain()
-           .subscribe {
-               viewState.value = ViewState(
-                   status = Status.SUCCESS,
-                   data = getRepoListItems(),
-                   error = null
-               )
-       }
+        val disposable = Observable.timer(2, TimeUnit.SECONDS)
+            .listenOnMain()
+            .subscribe {
+                viewState.value = ViewState(
+                    status = Status.SUCCESS,
+                    data = getRepoListItems(),
+                    error = null
+                )
+            }
 
 
     }
@@ -77,6 +77,8 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
 
             for (i in 0..random) {
 
+                val favorite = i % 2 == 0
+
                 val repoListItem = RepoListItem(
                     repoId = repoId,
                     repoName = repoName,
@@ -85,7 +87,7 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
                     ownerId = ownerId,
                     login = login,
                     avatarUrl = avatarUrl,
-                    isFavorite = true
+                    isFavorite = favorite
                 )
 
                 listRepos.add(repoListItem)

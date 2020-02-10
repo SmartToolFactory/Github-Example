@@ -10,12 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.smarttoolfactory.domain.model.RepoListItem
 import com.smarttoolfactory.githubexample.BR
 import com.smarttoolfactory.githubexample.R
-import kotlinx.android.synthetic.main.fragment_repo_detail.view.*
 import kotlinx.android.synthetic.main.item_repo.view.*
 
 
 /**
- * Adapter for the currency rates list. Has a reference to the [RepoListVM] to send actions back to it.
+ * Adapter for the repo list. Has a reference to the [RepoListVM] to send actions back to it.
  */
 class RepoListAdapter(
 
@@ -24,7 +23,7 @@ class RepoListAdapter(
 
 ) :
     ListAdapter<RepoListItem, RepoListAdapter.CustomViewHolder<RepoListItem>>(
-        CurrencyRatesDiffCallback()
+        RepoDiffCallback()
     ) {
 
     override fun onCreateViewHolder(
@@ -89,7 +88,7 @@ class RepoListAdapter(
     }
 
     /**
-     * get layout res based on view currencyType
+     * get layout res for row
      */
     private fun getLayoutRes(): Int {
         return R.layout.item_repo
@@ -103,7 +102,7 @@ class RepoListAdapter(
  * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class CurrencyRatesDiffCallback : DiffUtil.ItemCallback<RepoListItem>() {
+class RepoDiffCallback : DiffUtil.ItemCallback<RepoListItem>() {
 
     override fun areItemsTheSame(
         oldItem: RepoListItem, newItem: RepoListItem

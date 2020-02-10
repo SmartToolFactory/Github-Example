@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
 
 
 android {
@@ -26,7 +27,6 @@ android {
 
         release {
             // Enables code shrinking, obfuscation, and optimization for only
-            // your project's release build currencyType.
 //            minifyEnabled true
 
             // Enables resource shrinking, which is performed by the

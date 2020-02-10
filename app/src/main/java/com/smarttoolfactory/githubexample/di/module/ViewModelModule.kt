@@ -4,6 +4,7 @@ package com.smarttoolfactory.githubexample.di.module
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.smarttoolfactory.githubexample.di.key.ViewModelKey
+import com.smarttoolfactory.githubexample.main.ToolbarVM
 import com.smarttoolfactory.githubexample.repodetail.RepoDetailVM
 import com.smarttoolfactory.githubexample.repolist.RepoListVM
 import com.smarttoolfactory.githubexample.viewmodel.CustomViewModelFactory
@@ -26,12 +27,17 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(RepoListVM::class)
-    abstract fun bindRepoListViewModel(loginViewModel: RepoListVM): ViewModel
+    abstract fun bindRepoListViewModel(repoListVM: RepoListVM): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(RepoDetailVM::class)
-    abstract fun bindRepoDetailViewModel(ordersViewModel: RepoDetailVM): ViewModel
+    abstract fun bindRepoDetailViewModel(repoDetailVM: RepoDetailVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ToolbarVM::class)
+    abstract fun bindToolbarViewModel(toolbarVM: ToolbarVM): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: CustomViewModelFactory): ViewModelProvider.Factory

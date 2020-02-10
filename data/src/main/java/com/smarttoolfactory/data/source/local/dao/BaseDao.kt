@@ -15,9 +15,9 @@ import io.reactivex.Single
     https://medium.com/androiddevelopers/room-rxjava-acb0cd4f3757
  */
 /**
- * Base Data Access Object interface for generic currencyType T. Contains methods for common functions that does not include
+ * Base Data Access Object interface for generic type T. Contains methods for common functions that does not include
  * queries with @Query
- * @param T generic currencyType of Object to be inserted, updated or deleted
+ * @param T generic type of Object to be inserted, updated or deleted
 </T> */
 @Dao
 interface BaseDao<T> {

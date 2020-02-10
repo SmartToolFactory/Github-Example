@@ -1,6 +1,6 @@
 package com.smarttoolfactory.githubexample.di.module
 
-import com.smarttoolfactory.githubexample.MainActivity
+import com.smarttoolfactory.githubexample.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

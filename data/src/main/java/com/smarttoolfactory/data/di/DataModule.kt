@@ -40,11 +40,11 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideOrdersRepository(
+    fun provideGithubRepository(
         @Named("remote") webService: GithubDataSource,
-        @Named("local") localOrdersDataSource: GithubDataSource
+        @Named("local") localGithubDataSource: GithubDataSource
     ): GithubRepository {
-        return RepositoryImpl(webService, localOrdersDataSource)
+        return RepositoryImpl(webService, localGithubDataSource)
     }
 
 }

@@ -1,8 +1,13 @@
 package com.smarttoolfactory.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * Data class for displaying items on UI
  */
+
+@Parcelize
 data class RepoListItem(
 
     val repoId: Int,
@@ -20,4 +25,4 @@ data class RepoListItem(
     val login: String,
 
     val avatarUrl: String
-)
+) : Parcelable

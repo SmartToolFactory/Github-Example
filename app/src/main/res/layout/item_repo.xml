@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
             android:text="@{item.repoName}"
-            android:textSize="18dp"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_favorite_repo"
             app:layout_constraintEnd_toStartOf="@+id/btn_favorite_repo"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,12 +32,13 @@
 
         <ImageButton
             android:id="@+id/btn_favorite_repo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="8dp"
             android:background="#00ffffff"
             android:src="@drawable/ic_star_black_24dp"
-            android:tint="#ff0"
+            favoriteImageSrc="@{item.favorite}"
+            android:tint="#FFEA00"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,6 +1,7 @@
 package com.smarttoolfactory.githubexample.util
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
@@ -60,6 +61,17 @@ fun setImageUrl(view: ImageView, path: String?) {
 @BindingAdapter("visibilityBasedOn")
 fun View.visibilityBasedOn(condition: Boolean) {
     visibility = if (condition) View.VISIBLE else View.GONE
+
+}
+
+
+@BindingAdapter("favoriteImageSrc")
+fun ImageButton.setFavoriteImageSrc(favorite: Boolean) {
+
+    val imageResource = if (favorite) R.drawable.ic_star_black_24dp
+    else R.drawable.ic_star_border_black_24dp
+
+    setImageResource(imageResource)
 
 }
 

@@ -14,12 +14,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="12dp">
 
 
         <ImageView
             android:id="@+id/iv_repo_avatar"
             android:layout_width="0dp"
+            android:layout_marginTop="24dp"
             android:layout_height="0dp"
             android:src="@drawable/ic_star_black_24dp"
 
@@ -46,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@{viewModel.item.starCount}"
+            android:text="@{`Stars: ` + viewModel.item.starCount}"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="@+id/iv_repo_avatar"
             app:layout_constraintTop_toBottomOf="@+id/iv_repo_avatar"
@@ -55,8 +56,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@{viewModel.item.openIssuesCount}"
+            android:layout_marginTop="14dp"
+            android:text="@{`Open Issues: ` +viewModel.item.openIssuesCount}"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="@+id/iv_repo_avatar"
             app:layout_constraintTop_toBottomOf="@+id/tv_star_count"

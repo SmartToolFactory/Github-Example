@@ -1,6 +1,9 @@
 package com.smarttoolfactory.githubexample.repolist
 
+import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smarttoolfactory.githubexample.R
 import com.smarttoolfactory.githubexample.base.fragment.BaseFragment
@@ -31,7 +34,25 @@ class RepoListFragment : BaseFragment<FragmentRepoListBinding>() {
             this.adapter =
                 RepoListAdapter(repoListVM::onRepoClicked, repoListVM::onFavoriteRepoStatusChanged)
         }
+
+        subscribeGoToDetailScreen()
+
     }
 
+    private fun subscribeGoToDetailScreen() {
+
+        repoListVM.goToDetailScreen.observe(this, Observer {
+
+            // Create Action
+//            val action = RepoListFragmentDirections
+//                .actionRepoListFragmentToRepoDetailFragment(it)
+//
+//            findNavController().navigate(action)
+
+            val bundle = bundleOf("repoItem" to it)
+            findNavController().navigate(R.id.action_repoListFragment_to_repoDetailFragment, bundle)
+        })
+
+    }
 
 }

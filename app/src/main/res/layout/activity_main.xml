@@ -2,12 +2,20 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.smarttoolfactory.githubexample.main.ToolbarVM" />
+
+    </data>
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".main.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -19,7 +27,22 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:paddingEnd="12dp"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+                <ImageButton
+                    android:id="@+id/btn_favorite_repo"
+                    favoriteImageSrc="@{viewModel.favRepoImgSelected}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:background="#00ffffff"
+                    android:onClick="@{()-> viewModel.setFavoriteRepoStatus()}"
+                    android:src="@drawable/ic_star_black_24dp"
+                    android:tint="#FFEA00"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.appcompat.widget.Toolbar>
 
