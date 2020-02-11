@@ -1,8 +1,17 @@
 package com.smarttoolfactory.data.repository
 
-import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
+import com.smarttoolfactory.data.mapper.Mapper
+import com.smarttoolfactory.data.model.local.FavoriteRepoEntity
+import com.smarttoolfactory.data.model.local.RepoEntity
+import com.smarttoolfactory.data.model.remote.response.RepoDTO
+import com.smarttoolfactory.data.source.local.LocalGithubDataSource
+import com.smarttoolfactory.data.source.remote.RemoteGithubDataSource
+import io.mockk.clearMocks
+import io.mockk.mockk
+import io.reactivex.observers.TestObserver
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.TestInstance
 
 
 /**
@@ -36,7 +45,38 @@ import org.junit.jupiter.api.Assertions.*
     2- Given DB has no data for current user return empty list
 
  */
- class RepositoryImplTest {
+
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class RepositoryImplTest {
+
+    private val localDataSource: LocalGithubDataSource = mockk()
+    private val remoteDataSource: RemoteGithubDataSource = mockk()
+    private val mapperDTOtoEntity: Mapper<RepoDTO, RepoEntity> = mockk()
+    private val mapperToFavorite: Mapper<RepoEntity, FavoriteRepoEntity> = mockk()
+
+    private lateinit var repository: GithubRepository
+
+    private lateinit var testObserver: TestObserver<List<RepoDTO>>
+
+    @BeforeEach
+    fun setUp() {
+        testObserver = TestObserver()
+    }
+
+    @AfterEach
+    fun tearDown() {
+
+        clearMocks(localDataSource)
+        clearMocks(remoteDataSource)
+
+        repository = RepositoryImpl(
+            localDataSource, remoteDataSource,
+            mapperDTOtoEntity, mapperToFavorite
+        )
+
+        testObserver.dispose()
+    }
 
 
 }
