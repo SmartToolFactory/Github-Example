@@ -47,13 +47,19 @@ class RepositoryImpl @Inject constructor(
     }
 
     @VisibleForTesting
-     fun fetchRepoEntity(user: String): Observable<List<RepoEntity>> {
+    fun fetchRepoEntity(user: String): Observable<List<RepoEntity>> {
+
         return webService.getRepoDTOs(user)
             .onErrorResumeNext { _: Throwable ->
                 Observable.just(listOf())
             }
             .map {
-                mapDTOtoEntity(it)
+                if (it.isNullOrEmpty()) {
+                    listOf<RepoEntity>()
+                } else {
+                    mapDTOtoEntity(it)
+                }
+
             }
     }
 
