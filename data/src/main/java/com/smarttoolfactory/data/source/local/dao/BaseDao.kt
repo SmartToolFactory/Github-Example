@@ -15,7 +15,7 @@ import io.reactivex.Single
     https://medium.com/androiddevelopers/room-rxjava-acb0cd4f3757
  */
 /**
- * Base Data Access Object interface for generic type T. Contains methods for common functions that does not include
+ * Base Data Access Object interface for generic T. Contains methods for common functions that does not include
  * queries with @Query
  * @param T generic type of Object to be inserted, updated or deleted
 </T> */
@@ -27,7 +27,7 @@ interface BaseDao<T> {
      */
 
     /*
-        Query
+        *** QUERY ***
         To get the user from the database, we could write the following query in the data access object class (UserDao):
 
         @Query(“SELECT * FROM Users WHERE id = :userId”)
@@ -68,21 +68,27 @@ interface BaseDao<T> {
         2- When there is a user in the database, Single will trigger onSuccess.
         3- If the user is updated after Single was completed, nothing happens.
      */
+
+    // Insert Single entity
     @Insert(onConflict = REPLACE)
     fun insertMaybe(entity: T): Maybe<Long>
 
     @Insert(onConflict = REPLACE)
     fun insertSingle(entity: T): Single<Long>
 
-
     @Insert(onConflict = REPLACE)
-    fun insertCompletable(entity: T): Completable
+    fun insert(entity: T): Completable
 
+    // Insert Multiple Entities
+    @Insert(onConflict = REPLACE)
+    fun insert(entities: List<T>): Completable
 
+    // Update
     @Update
-    fun update(entity: T): Maybe<Int>
+    fun update(entity: T): Completable
 
+    // Delete
     @Delete
-    fun delete(entity: T): Maybe<Int>
+    fun delete(entity: T): Completable
 
 }

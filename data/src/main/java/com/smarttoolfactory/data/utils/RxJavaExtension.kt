@@ -4,6 +4,7 @@ import com.smarttoolfactory.data.api.DataResult
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
@@ -83,9 +84,6 @@ fun <T> Observable<T>.observeResultOnIO(
 fun <T> Observable<T>.convertToResultOnIO(): Observable<DataResult<T>> {
     return this
         .listenOnIO()
-        .startWith {
-            Observable.just(DataResult.Loading<T>())
-        }
         .map<DataResult<T>> { data
             ->
             DataResult.Success(data)
@@ -95,5 +93,8 @@ fun <T> Observable<T>.convertToResultOnIO(): Observable<DataResult<T>> {
                 DataResult.Error(throwable)
             )
         }
-        .doOnError { t: Throwable -> t.printStackTrace() }
+}
+
+fun Disposable.addTo(disposables: CompositeDisposable) {
+    disposables.add(this)
 }

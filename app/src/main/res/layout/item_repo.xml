@@ -20,7 +20,6 @@
             android:id="@+id/tv_repo_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="8dp"
             android:text="@{item.repoName}"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_favorite_repo"

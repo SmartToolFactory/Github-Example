@@ -6,7 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.smarttoolfactory.data.factory.TestObjectFactory
 import com.smarttoolfactory.data.model.local.FavoriteRepoEntity
-import com.smarttoolfactory.data.model.local.RepoEntity
 import com.smarttoolfactory.data.source.local.AppDatabase
 import io.reactivex.observers.TestObserver
 import org.junit.*
@@ -87,7 +86,7 @@ class FavoriteRepoDaoTest {
 
         // GIVEN
         val favoriteRepoEntity = TestObjectFactory.getMockFavoriteRepoEntity()
-        favoriteRepoDao.insertCompletable(favoriteRepoEntity).blockingAwait()
+        favoriteRepoDao.insert(favoriteRepoEntity).blockingAwait()
 
 
         // WHEN

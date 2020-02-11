@@ -97,7 +97,7 @@ class RepoDaoTest {
         val repoEntity = TestObjectFactory.getMockRepoEntity(false)
 
         // WHEN
-        repoDao.insertCompletable(repoEntity).blockingAwait()
+        repoDao.insert(repoEntity).blockingAwait()
 
         // THEN
         repoDao.getRepos()
@@ -115,7 +115,7 @@ class RepoDaoTest {
 
         // GIVEN
         val repoEntity = TestObjectFactory.getMockRepoEntity(false)
-        repoDao.insertCompletable(repoEntity).blockingAwait()
+        repoDao.insert(repoEntity).blockingAwait()
 
         // WHEN
         repoDao.deleteAll().blockingGet()
@@ -134,7 +134,7 @@ class RepoDaoTest {
     fun shouldUpdateFavoriteStatusOfRepo() {
         // GIVEN
         val repoEntity = TestObjectFactory.getMockRepoEntity(false)
-        repoDao.insertCompletable(repoEntity).blockingAwait()
+        repoDao.insert(repoEntity).blockingAwait()
 
         repoEntity.isFavorite = true
 
