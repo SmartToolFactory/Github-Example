@@ -14,9 +14,14 @@ class RemoteGithubDataSource @Inject constructor(private val webService: GithubA
 
     override fun getRepoDTOs(user: String): Observable<List<RepoDTO>> {
         return webService.getRepoList(user)
+
     }
 
     override fun getRepoEntities(): Observable<List<RepoEntity>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getRepoEntitiesByUser(user: String): Observable<List<RepoEntity>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

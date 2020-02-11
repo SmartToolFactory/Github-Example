@@ -66,4 +66,7 @@ dependencies {
 
     // MockK
     testImplementation "io.mockk:mockk:$mockKVersion"
+
+    // Truth
+    testImplementation "com.google.truth:truth:1.0.1"
 }

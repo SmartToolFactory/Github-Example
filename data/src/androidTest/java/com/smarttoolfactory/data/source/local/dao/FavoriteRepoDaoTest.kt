@@ -86,11 +86,11 @@ class FavoriteRepoDaoTest {
 
         // GIVEN
         val favoriteRepoEntity = TestObjectFactory.getMockFavoriteRepoEntity()
-        favoriteRepoDao.insert(favoriteRepoEntity).blockingAwait()
+        favoriteRepoDao.insertCompletable(favoriteRepoEntity).blockingAwait()
 
 
         // WHEN
-        favoriteRepoDao.delete(favoriteRepoEntity).blockingGet()
+        favoriteRepoDao.deleteCompletable(favoriteRepoEntity).blockingGet()
 
         // THEN
         favoriteRepoDao.getFavoriteRepos()
@@ -100,6 +100,64 @@ class FavoriteRepoDaoTest {
                 it.isEmpty()
             }
             .dispose()
+    }
+
+    @Test
+    fun shouldReturnFavoriteReposOnlyForSelectedUser() {
+
+        // GIVEN
+        val ownerId = 35650605
+        val repoId = 169870520
+
+        /**
+         *  Try to add times where 2 different users with 3 unique repos
+         *
+         *  Db should return 2 repos for selected user and 3 for query without no user
+         */
+
+        val favoriteRepoEntity1 =
+            TestObjectFactory.getMockFavoriteRepoEntity(ownerId, repoId, "Test")
+        val favoriteRepoEntity2 =
+            TestObjectFactory.getMockFavoriteRepoEntity(ownerId, repoId, "Dagger")
+        val favoriteRepoEntity3 =
+            TestObjectFactory.getMockFavoriteRepoEntity(ownerId, 1, "Unknown")
+        val favoriteRepoEntity4 =
+            TestObjectFactory.getMockFavoriteRepoEntity(2, 2, "Unkown2")
+
+        val list = listOf(
+            favoriteRepoEntity1,
+            favoriteRepoEntity2,
+            favoriteRepoEntity3,
+            favoriteRepoEntity4
+        )
+        favoriteRepoDao.insertCompletable(list)
+            .doOnError {
+                println("onError: ${it.message}")
+            }
+            .doOnComplete {
+                println("doOnComplete")
+            }
+            .blockingAwait()
+
+        // WHEN
+        favoriteRepoDao.getFavoriteRepos()
+            .test()
+            // check that there are 3 favorite repos in dv
+            .assertValue {
+                it.size == 3
+            }
+            .dispose()
+
+        // THEN
+        favoriteRepoDao.getFavoriteReposByOwnerId(ownerId)
+            .test()
+            // check there are 2 favorite repos belong to user with selected id
+            .assertValue {
+                it.size == 2
+            }
+            .dispose()
+
+
     }
 
 }

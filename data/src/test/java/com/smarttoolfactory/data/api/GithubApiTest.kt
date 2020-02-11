@@ -26,6 +26,10 @@ import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
 
+
+/**
+ * This test class uses Hamcrest assertion framework
+ */
 class GithubApiTest {
 
     private lateinit var githubApi: GithubApi
@@ -49,7 +53,6 @@ class GithubApiTest {
             .build()
             .create(GithubApi::class.java)
 
-
     }
 
     @AfterEach
@@ -66,7 +69,7 @@ class GithubApiTest {
         // WHEN
         githubApi
             .getRepoList("smarttoolfactory")
-            .blockingGet()
+            .blockingFirst()
 
         val request = mockWebServer.takeRequest()
 
@@ -84,7 +87,7 @@ class GithubApiTest {
         // WHEN
         val repos = githubApi
             .getRepoList("smarttoolfactory")
-            .blockingGet()
+            .blockingFirst()
 
         val owner = repos[0].owner
 
@@ -101,7 +104,7 @@ class GithubApiTest {
 
 
     @Test
-    fun `Repos should return repo list with TestObserver`() {
+    fun `Service should return repo list with TestObserver`() {
 
         // GIVEN
         enqueueResponse(200, "repos.json")
@@ -118,14 +121,16 @@ class GithubApiTest {
         testObserver.assertNotSubscribed()
 
         //Subscribe TestObserver to source
-        observable.subscribe(testObserver)
+        observable
+            .subscribeOn(Schedulers.io())
+            .subscribe(testObserver)
 
         // THEN
         // Subscribes here
         //Assert TestObserver is subscribed
         testObserver.assertSubscribed()
 
-        //🔥🔥 Block and wait for Observable to terminate
+        //🔥🔥 Block and wait for Observable to terminate, Useful for testing with Schedulers
         testObserver.awaitTerminalEvent()
 
         //Assert TestObserver called onComplete()
@@ -162,7 +167,7 @@ class GithubApiTest {
 
                 githubApi
                     .getRepoList("smarttoolfactory")
-                    .blockingGet()
+                    .blockingFirst()
 
             }
 

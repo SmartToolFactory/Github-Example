@@ -20,7 +20,7 @@ import io.reactivex.Single
  * @param T generic type of Object to be inserted, updated or deleted
 </T> */
 @Dao
-interface BaseDao<T> {
+interface BaseRxDao<T> {
 
     /*
         In case of error inserting the data, Completable, Single and Maybe will emit the exception in onError.
@@ -69,7 +69,9 @@ interface BaseDao<T> {
         3- If the user is updated after Single was completed, nothing happens.
      */
 
-    // Insert Single entity
+    /*
+        Insert Single entity
+     */
     @Insert(onConflict = REPLACE)
     fun insertMaybe(entity: T): Maybe<Long>
 
@@ -77,18 +79,35 @@ interface BaseDao<T> {
     fun insertSingle(entity: T): Single<Long>
 
     @Insert(onConflict = REPLACE)
-    fun insert(entity: T): Completable
+    fun insertCompletable(entity: T): Completable
 
-    // Insert Multiple Entities
+    /*
+        Insert Multiple entities
+     */
     @Insert(onConflict = REPLACE)
-    fun insert(entities: List<T>): Completable
+    fun insertCompletable(entities: List<T>): Completable
 
-    // Update
+    /*
+        Update
+     */
     @Update
-    fun update(entity: T): Completable
+    fun updateCompletable(entity: T): Completable
 
-    // Delete
+    @Update
+    fun updateSingle(entity: T): Single<Int>
+
+    @Update
+    fun updateMaybe(entity: T): Maybe<Int>
+
+    /*
+        Delete
+     */
     @Delete
-    fun delete(entity: T): Completable
+    fun deleteCompletable(entity: T): Completable
 
+    @Delete
+    fun deleteSingle(entity: T): Single<Int>
+
+    @Delete
+    fun deleteMaybe(entity: T): Maybe<Int>
 }

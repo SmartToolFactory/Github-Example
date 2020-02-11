@@ -12,29 +12,36 @@ import io.reactivex.Single
  * Data Access Object for the rates table.
  */
 @Dao
-interface RepoDao : BaseDao<RepoEntity> {
+interface RepoDao : BaseRxDao<RepoEntity> {
 
     /**
      * Get list of repos to from database that belong to this user
+     *
+     *  Single will trigger onError(EmptyResultSetException.class) when there are no elements in DB
      */
     @Query("SELECT * FROM repo WHERE  login =:user")
     fun getReposSingle(user: String): Single<List<RepoEntity>>
 
     /**
-     * Get list of repos to from database. Returns empty list, not null if it's empty
+     * Get list of repos to from database as Single.
+     *
+     *  Single will trigger onError(EmptyResultSetException.class) when there are no elements in DB
      */
     @Query("SELECT * FROM repo")
-    fun getReposSingle(): Single<List<RepoEntity>>
+    fun getReposSingle(): Single<List<RepoEntity>?>
+
 
 
     /**
      * Get list of repos to from database that belong to this user
+     *
+     * Maybe will only call onComplete() when there ano elements in DB
      */
     @Query("SELECT * FROM repo WHERE  login =:user")
     fun getReposMaybe(user: String): Maybe<List<RepoEntity>>
 
     /**
-     * Get list of repos to from database. Returns empty list, not null if it's empty
+     * Get list of repos to from database.
      */
     @Query("SELECT * FROM repo")
     fun getReposMaybe(): Maybe<List<RepoEntity>>
@@ -52,6 +59,7 @@ interface RepoDao : BaseDao<RepoEntity> {
     fun getRepos(): Observable<List<RepoEntity>>
 
     @Query("DELETE FROM repo")
-    fun deleteAll(): Completable
+    fun deleteAllCompletable(): Completable
+
 
 }

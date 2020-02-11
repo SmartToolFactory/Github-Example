@@ -112,5 +112,4 @@ class RepoListVM @Inject constructor(private val getReposUseCase: GetReposUseCas
         }
 
     }
-
 }

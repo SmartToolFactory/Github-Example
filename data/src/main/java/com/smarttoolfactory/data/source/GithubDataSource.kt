@@ -13,7 +13,10 @@ interface GithubDataSource {
     fun getRepoDTOs(user: String): Observable<List<RepoDTO>>
 
     // Repo Dao
+
     fun getRepoEntities(): Observable<List<RepoEntity>>
+
+    fun getRepoEntitiesByUser(user: String): Observable<List<RepoEntity>>
 
     fun saveRepoEntities(repos: List<RepoEntity>): Completable
 

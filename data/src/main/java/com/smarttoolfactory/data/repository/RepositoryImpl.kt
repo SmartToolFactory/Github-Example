@@ -1,5 +1,6 @@
 package com.smarttoolfactory.data.repository
 
+import androidx.annotation.VisibleForTesting
 import com.smarttoolfactory.data.mapper.Mapper
 import com.smarttoolfactory.data.model.local.FavoriteRepoEntity
 import com.smarttoolfactory.data.model.local.RepoEntity
@@ -15,6 +16,7 @@ class RepositoryImpl @Inject constructor(
     private val mapperToFavorite: Mapper<RepoEntity, FavoriteRepoEntity>
 ) : GithubRepository {
 
+
     /**
      * Gets user repos as DTO objects from web service operating with Online-First approach.
      *
@@ -22,10 +24,30 @@ class RepositoryImpl @Inject constructor(
      * and saves them to database to use db as Single Source of Truth.
      *
      * If there occurs an exception it moves to onResumeNext and returns an empty list
+     *
+     *
+     * Note: Using onErrorResumeNext() method with empty list is required since it's still DTO
+     * object while [RepoEntity] is required as output
      */
     override fun getUserReposOnlineFirst(user: String): Observable<List<RepoEntity>> {
 
+        return fetchRepoEntity(user)
 
+            .flatMap {
+                if (it.isNullOrEmpty()) {
+                    localDataSource.getRepoEntitiesByUser(user)
+                } else {
+                    // Delete previous data on db, replace with new one and return it
+                    localDataSource.deleteRepos()
+                        .andThen(localDataSource.saveRepoEntities(it))
+                        .andThen(Observable.just(it))
+                }
+            }
+
+    }
+
+    @VisibleForTesting
+     fun fetchRepoEntity(user: String): Observable<List<RepoEntity>> {
         return webService.getRepoDTOs(user)
             .onErrorResumeNext { _: Throwable ->
                 Observable.just(listOf())
@@ -33,19 +55,6 @@ class RepositoryImpl @Inject constructor(
             .map {
                 mapDTOtoEntity(it)
             }
-
-            .flatMap {
-                if (it.isNullOrEmpty()) {
-                    localDataSource.getRepoEntities()
-                }else {
-                    // Delete previous data on db, replace with new one and return this
-                    localDataSource.deleteRepos()
-                        .andThen(localDataSource.saveRepoEntities(it))
-                        .andThen(Observable.just(it))
-                }
-            }
-
-
     }
 
     private fun mapDTOtoEntity(it: List<RepoDTO>): ArrayList<RepoEntity> {

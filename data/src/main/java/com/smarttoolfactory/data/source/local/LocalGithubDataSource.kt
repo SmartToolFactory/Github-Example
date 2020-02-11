@@ -9,7 +9,6 @@ import com.smarttoolfactory.data.source.local.dao.FavoriteRepoDao
 import com.smarttoolfactory.data.source.local.dao.RepoDao
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
 import javax.inject.Inject
 
 /**
@@ -29,20 +28,24 @@ class LocalGithubDataSource @Inject constructor(
         return repoDao.getRepos()
     }
 
+    override fun getRepoEntitiesByUser(user: String): Observable<List<RepoEntity>> {
+        return repoDao.getRepos(user)
+    }
+
     override fun saveRepoEntities(repos: List<RepoEntity>): Completable {
-        return repoDao.insert(repos)
+        return repoDao.insertCompletable(repos)
     }
 
     override fun saveRepoEntity(repo: RepoEntity): Completable {
-        return repoDao.insert(repo)
+        return repoDao.insertCompletable(repo)
     }
 
     override fun deleteRepos(): Completable {
-        return repoDao.deleteAll()
+        return repoDao.deleteAllCompletable()
     }
 
     override fun saveFavoriteRepo(favoriteRepoEntity: FavoriteRepoEntity): Completable {
-        return favoriteRepoDao.insert(favoriteRepoEntity)
+        return favoriteRepoDao.insertCompletable(favoriteRepoEntity)
     }
 
     override fun getFavoriteReposByUser(user: String): Observable<List<FavoriteRepoEntity>> {
@@ -54,7 +57,7 @@ class LocalGithubDataSource @Inject constructor(
     }
 
     override fun deleteFavoriteRepo(favoriteRepoEntity: FavoriteRepoEntity): Completable {
-        return favoriteRepoDao.delete(favoriteRepoEntity)
+        return favoriteRepoDao.deleteCompletable(favoriteRepoEntity)
     }
 
 }

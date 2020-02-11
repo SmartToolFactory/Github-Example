@@ -8,6 +8,5 @@ interface GithubRepository {
 
     fun getUserReposOnlineFirst(user: String): Observable<List<RepoEntity>>
 
-//    fun getRepoEntityCount(): Observable<Int>
 
 }

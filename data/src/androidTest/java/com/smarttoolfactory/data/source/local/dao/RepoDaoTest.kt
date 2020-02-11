@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.smarttoolfactory.data.factory.TestObjectFactory
 import com.smarttoolfactory.data.model.local.RepoEntity
 import com.smarttoolfactory.data.source.local.AppDatabase
+import com.smarttoolfactory.data.utils.logLifeCycleEvents
 import io.reactivex.observers.TestObserver
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -97,7 +98,7 @@ class RepoDaoTest {
         val repoEntity = TestObjectFactory.getMockRepoEntity(false)
 
         // WHEN
-        repoDao.insert(repoEntity).blockingAwait()
+        repoDao.insertCompletable(repoEntity).blockingAwait()
 
         // THEN
         repoDao.getRepos()
@@ -115,13 +116,14 @@ class RepoDaoTest {
 
         // GIVEN
         val repoEntity = TestObjectFactory.getMockRepoEntity(false)
-        repoDao.insert(repoEntity).blockingAwait()
+        repoDao.insertCompletable(repoEntity).blockingAwait()
 
         // WHEN
-        repoDao.deleteAll().blockingGet()
+        repoDao.deleteAllCompletable().blockingGet()
 
         // THEN
-        repoDao.getRepos()
+        repoDao.getReposSingle()
+            .logLifeCycleEvents()
             .test()
             // check that there's no repo emitted
             .assertValue {
@@ -134,12 +136,12 @@ class RepoDaoTest {
     fun shouldUpdateFavoriteStatusOfRepo() {
         // GIVEN
         val repoEntity = TestObjectFactory.getMockRepoEntity(false)
-        repoDao.insert(repoEntity).blockingAwait()
+        repoDao.insertCompletable(repoEntity).blockingAwait()
 
         repoEntity.isFavorite = true
 
         // WHEN
-        repoDao.update(repoEntity).blockingGet()
+        repoDao.updateCompletable(repoEntity).blockingGet()
 
         repoDao.getRepos()
             .test()
@@ -148,7 +150,6 @@ class RepoDaoTest {
                 it[0].isFavorite
             }
             .dispose()
-
 
     }
 

@@ -12,7 +12,7 @@ import com.smarttoolfactory.data.model.remote.response.RepoDTO
 object TestObjectFactory {
 
     // Owner properties
-    private const val ownerId = 35650605
+     const val ownerId = 35650605
     private const val login = "SmartToolFactory"
     private const val avatarUrl = "https://avatars0.githubusercontent.com/u/35650605?v=4"
 
@@ -49,12 +49,12 @@ object TestObjectFactory {
             isFavorite = isFavorite
         )
 
-    fun getMockFavoriteRepoEntity(): FavoriteRepoEntity = FavoriteRepoEntity(
-        repoId = repoId,
-        repoName = repoName,
+    fun getMockFavoriteRepoEntity(ownerUID: Int = ownerId, repoUID:Int= repoId, repoTitle: String = repoName): FavoriteRepoEntity = FavoriteRepoEntity(
+        repoId = repoUID,
+        repoName = repoTitle,
         starCount = repoStars,
         openIssuesCount = openIssuesCount,
-        ownerId = ownerId,
+        ownerId = ownerUID,
         ownerName = login,
         ownerAvatarUrl = avatarUrl
     )
