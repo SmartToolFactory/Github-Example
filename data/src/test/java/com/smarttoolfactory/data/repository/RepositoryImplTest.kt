@@ -128,7 +128,7 @@ class RepositoryImplTest {
                 .dispose()
 
 
-            // Verify that repository tried to fecth but map is not called
+            // Verify that repository tried to fetch but map is not called
             verify(exactly = 1) { remoteDataSource.getRepoDTOs(user) }
             verify(exactly = 0) { mapperDTOtoEntity.map(any()) }
 
@@ -179,19 +179,15 @@ class RepositoryImplTest {
             every { localDataSource.getRepoEntitiesByUser(user) }
 
             // WHEN
-            val testObserver = repository.getUserReposOnlineFirst(user)
+            repository.getUserReposOnlineFirst(user)
                 .subscribeOn(Schedulers.io())
-                // THEN
-                .test()
+                .subscribe(testObserver)
 
             // 🔥 Schedulers.io() thread should be waited
             testObserver.awaitTerminalEvent()
 
-            testObserver.dispose()
-
             // THEN
             // Verify that these methods are not called
-
             verifyAll {
 
                 remoteDataSource.getRepoDTOs(user)
@@ -236,14 +232,11 @@ class RepositoryImplTest {
             testObserver.awaitTerminalEvent()
 
 
+            // THEN
             val actual = testObserver.values()[0]
             assertThat(actual).isEqualTo(repoEntityList)
 
-            testObserver.dispose()
-
-            // THEN
             // Verify that these methods are not called
-
             verifyAll {
 
                 remoteDataSource.getRepoDTOs(user)
@@ -272,7 +265,6 @@ class RepositoryImplTest {
             every { localDataSource.deleteRepos() } returns Completable.complete()
             every { localDataSource.saveRepoEntities(any()) } returns Completable.complete()
 
-
             // WHEN
             val testObserver = repository.getUserReposOnlineFirst(user)
                 .subscribeOn(Schedulers.io())
@@ -286,7 +278,6 @@ class RepositoryImplTest {
 
             // THEN
             // Verify that these methods are not called
-
             verifyAll {
 
                 remoteDataSource.getRepoDTOs(user)
@@ -300,7 +291,6 @@ class RepositoryImplTest {
             }
         }
     }
-
 
     @BeforeEach
     fun setUp() {

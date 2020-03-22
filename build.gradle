@@ -10,7 +10,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.6.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
 
@@ -62,7 +62,7 @@ ext {
     // Retrofit
     retrofitVersion = '2.3.0'
 
-    // OkHttpClien
+    // OkHttpClient
     okHttpVersion = '4.2.1'
 
     //Gson

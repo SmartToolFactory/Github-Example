@@ -6,7 +6,7 @@ import com.smarttoolfactory.data.model.remote.response.OwnerDTO
 import com.smarttoolfactory.data.model.remote.response.RepoDTO
 
 /**
- * Normally Factory methods does not take more than 3 parameters but to create test variations
+ * Normally Factory methods do not take more than 3 parameters but to create test variations
  * default and multiple params added.
  */
 object TestObjectFactory {

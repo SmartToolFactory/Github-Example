@@ -8,12 +8,13 @@ import com.smarttoolfactory.data.model.remote.response.RepoDTO
 import com.smarttoolfactory.data.source.GithubDataSource
 import io.reactivex.Observable
 import javax.inject.Inject
+import javax.inject.Named
 
 class RepositoryImpl @Inject constructor(
-    private val webService: GithubDataSource,
-    private val localDataSource: GithubDataSource,
-    private val mapperDTOtoEntity: Mapper<RepoDTO, RepoEntity>,
-    private val mapperToFavorite: Mapper<RepoEntity, FavoriteRepoEntity>
+    @Named("remote")  private val webService: GithubDataSource,
+    @Named("local")  private val localDataSource: GithubDataSource,
+    @Named("RepoDTOtoEntity") private val mapperDTOtoEntity: Mapper<RepoDTO, RepoEntity>,
+    @Named("RepoToFavoriteEntity") private val mapperToFavorite: Mapper<RepoEntity, FavoriteRepoEntity>
 ) : GithubRepository {
 
 

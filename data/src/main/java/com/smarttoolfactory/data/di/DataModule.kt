@@ -1,6 +1,5 @@
 package com.smarttoolfactory.data.di
 
-import com.smarttoolfactory.data.api.GithubApi
 import com.smarttoolfactory.data.mapper.Mapper
 import com.smarttoolfactory.data.model.local.FavoriteRepoEntity
 import com.smarttoolfactory.data.model.local.RepoEntity
@@ -9,39 +8,42 @@ import com.smarttoolfactory.data.repository.GithubRepository
 import com.smarttoolfactory.data.repository.RepositoryImpl
 import com.smarttoolfactory.data.source.GithubDataSource
 import com.smarttoolfactory.data.source.local.LocalGithubDataSource
-import com.smarttoolfactory.data.source.local.dao.FavoriteRepoDao
-import com.smarttoolfactory.data.source.local.dao.RepoDao
 import com.smarttoolfactory.data.source.remote.RemoteGithubDataSource
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Module(includes = [NetworkModule::class, DatabaseModule::class])
-class DataModule {
+@Module(includes = [DataProviderModule::class, NetworkModule::class, DatabaseModule::class])
+interface DataModule {
 
     /*
         Data Sources
      */
-
     @Singleton
-    @Provides
+    @Binds
     @Named("remote")
-    fun provideRemoteGithubDataSource(githubApi: GithubApi): GithubDataSource =
-        RemoteGithubDataSource(githubApi)
+    fun bindRemoteGithubDataSource(remoteGithubDataSource: RemoteGithubDataSource): GithubDataSource
 
     @Singleton
-    @Provides
+    @Binds
     @Named("local")
-    fun provideLocalGithubDataSource(
-        repoDao: RepoDao,
-        favoriteRepoDao: FavoriteRepoDao
-    ): GithubDataSource = LocalGithubDataSource(repoDao, favoriteRepoDao)
+    fun bindLocalGithubDataSource(localGithubDataSource: LocalGithubDataSource): GithubDataSource
 
     /*
         Repository
-     */
+    */
+    @Singleton
+    @Binds
+    fun bindRepository(repositoryImpl: RepositoryImpl): GithubRepository
 
+}
+
+@Module
+object DataProviderModule {
+
+    @JvmStatic
     @Singleton
     @Provides
     @Named("RepoDTOtoEntity")
@@ -64,6 +66,8 @@ class DataModule {
             }
         }
     }
+
+    @JvmStatic
     @Singleton
     @Provides
     @Named("RepoToFavoriteEntity")
@@ -84,23 +88,6 @@ class DataModule {
                 )
             }
         }
-    }
-
-    @Singleton
-    @Provides
-    fun provideRepoRepository(
-        @Named("remote") webService: GithubDataSource,
-        @Named("local") localGithubDataSource: GithubDataSource,
-        @Named("RepoDTOtoEntity") mapperRepoDTOtoEntity: Mapper<RepoDTO, RepoEntity>,
-        @Named("RepoToFavoriteEntity") mapperRepoToFavoriteEntityMapper: Mapper<RepoEntity, FavoriteRepoEntity>
-
-    ): GithubRepository {
-        return RepositoryImpl(
-            webService,
-            localGithubDataSource,
-            mapperRepoDTOtoEntity,
-            mapperRepoToFavoriteEntityMapper
-        )
     }
 
 }
