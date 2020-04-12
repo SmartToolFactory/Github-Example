@@ -26,12 +26,11 @@ import javax.inject.Singleton
 )
 interface AppComponent : AndroidInjector<MyApplication> {
 
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
+    @Component.Factory
+    interface Factory {
 
-        fun build(): AppComponent
+
+        fun create(@BindsInstance application: Application): AppComponent
     }
 
     override fun inject(app: MyApplication)

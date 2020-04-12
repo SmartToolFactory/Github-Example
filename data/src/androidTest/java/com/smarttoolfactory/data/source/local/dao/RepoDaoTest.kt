@@ -15,6 +15,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.security.MessageDigest
 
 
 @RunWith(AndroidJUnit4::class)
@@ -151,6 +152,11 @@ class RepoDaoTest {
             }
             .dispose()
 
+    }
+
+    @Test
+    fun test() {
+        val md = MessageDigest.getInstance("SHA-256")
     }
 
 }

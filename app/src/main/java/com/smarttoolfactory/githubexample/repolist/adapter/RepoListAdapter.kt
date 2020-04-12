@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.smarttoolfactory.domain.model.RepoListItem
 import com.smarttoolfactory.githubexample.BR
 import com.smarttoolfactory.githubexample.R
+import com.smarttoolfactory.githubexample.repolist.RepoListVM
 import kotlinx.android.synthetic.main.item_repo.view.*
 
 

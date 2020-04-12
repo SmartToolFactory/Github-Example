@@ -4,20 +4,20 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
-
-
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
     defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         applicationId "com.smarttoolfactory.githubexample"
-        minSdkVersion 26
-        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
     buildTypes {
 
         debug {
@@ -46,6 +46,7 @@ android {
     // Specifies one flavor dimension.
     flavorDimensions "version"
     productFlavors {
+
         demo {
             // Assigns this product flavor to the "version" flavor dimension.
             // If you are using only one dimension, this property is optional,
@@ -55,11 +56,17 @@ android {
             applicationIdSuffix ".demo"
             versionNameSuffix "-demo"
         }
+
         full {
             dimension "version"
             applicationIdSuffix ".full"
             versionNameSuffix "-full"
         }
+    }
+
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-shared/java"
+        test.java.srcDirs += "src/test-shared/java"
     }
 
     dataBinding {
@@ -162,8 +169,8 @@ dependencies {
 //    testImplementation "junit:junit:4.12"
 //    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.3.1"
 
-//    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
-//    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
 
     // AndroidX Test - JVM testing
 //    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
