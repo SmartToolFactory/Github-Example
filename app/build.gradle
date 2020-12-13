@@ -87,9 +87,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    api project(':domain')
-    api project(':common')
-
+    implementation project(':domain')
+    implementation project(':data')
+    implementation project(':common')
 
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
 
@@ -107,8 +107,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
 
     // glide
-    implementation("com.github.bumptech.glide:glide:4.9.0")
-    kapt("com.github.bumptech.glide:compiler:4.9.0")
+    implementation("com.github.bumptech.glide:glide:$rootProject.glideVersion")
+    kapt("com.github.bumptech.glide:compiler:$rootProject.glideVersion")
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
@@ -148,8 +148,8 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
 
     // Chuck
-    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
-    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    debugImplementation "com.github.chuckerteam.chucker:library:3.4.0"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.4.0"
 
     // **** TESTING ****
 
@@ -164,10 +164,6 @@ dependencies {
 
     // (Optional) If you need "Parameterized Tests"
 //    testImplementation "org.junit.jupiter:junit-jupiter-params:5.4.0"
-
-    // (Optional) If you also have JUnit 4-based tests
-//    testImplementation "junit:junit:4.12"
-//    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.3.1"
 
     testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"

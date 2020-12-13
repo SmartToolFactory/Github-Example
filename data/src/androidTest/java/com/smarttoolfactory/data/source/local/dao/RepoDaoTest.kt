@@ -64,7 +64,6 @@ class RepoDaoTest {
     @Test
     fun shouldInsertAndReturnRepoId() {
 
-
         // GIVEN
         val testObserver = TestObserver<List<RepoEntity>>()
         val repoEntity = TestObjectFactory.getMockRepoEntity(false)

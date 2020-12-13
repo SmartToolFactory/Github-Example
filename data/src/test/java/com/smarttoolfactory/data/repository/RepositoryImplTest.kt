@@ -44,7 +44,7 @@ This test class uses Truth assertion framework
     1- Given Exception returned from web service check DB
     2- Given data is available retrieve data from DB
 
-     Scenario 3- Web Service returns 404 or 500 error and DB does not have any daya
+     Scenario 3- Web Service returns 404 or 500 error and DB does not have any data
     1- Given Exception returned from web service check DB
     2- Given DB has no data for current user return empty list
 
@@ -219,7 +219,7 @@ class RepositoryImplTest {
 
             // Should not be called
             every { mapperDTOtoEntity.map(any()) }
-            every { localDataSource.deleteRepos() } returns Completable.complete()
+//            every { localDataSource.deleteRepos() } returns Completable.complete()
             every { localDataSource.saveRepoEntities(repoEntityList) } returns Completable.complete()
 
 

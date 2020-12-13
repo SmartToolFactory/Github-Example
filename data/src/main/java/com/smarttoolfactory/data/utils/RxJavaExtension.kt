@@ -86,8 +86,7 @@ fun <T> Observable<T>.observeResultOnIO(
 fun <T> Observable<T>.convertToResultOnIO(): Observable<DataResult<T>> {
     return this
         .listenOnIO()
-        .map<DataResult<T>> { data
-            ->
+        .map<DataResult<T>> { data ->
             DataResult.Success(data)
         }
         .onErrorResumeNext { throwable: Throwable ->

@@ -1,9 +1,10 @@
 package com.smarttoolfactory.data.di
 
 import android.app.Application
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.readystatesoftware.chuck.ChuckInterceptor
 import com.smarttoolfactory.data.api.GithubApi
 import com.smarttoolfactory.data.constant.BASE_URL
 import dagger.Module
@@ -30,7 +31,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
-        chuckInterceptor: ChuckInterceptor
+        chuckInterceptor: ChuckerInterceptor
     ): OkHttpClient {
         val okHttpBuilder = RetrofitUrlManager.getInstance().with(OkHttpClient.Builder())
         okHttpBuilder
@@ -58,6 +59,11 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideChuckInterceptor(application: Application) = ChuckInterceptor(application)
+    fun provideChuckInterceptor(application: Application) = ChuckerInterceptor.Builder(application)
+        .collector(ChuckerCollector(application))
+        .maxContentLength(250000L)
+        .redactHeaders(emptySet())
+        .alwaysReadResponseBody(false)
+        .build()
 
 }

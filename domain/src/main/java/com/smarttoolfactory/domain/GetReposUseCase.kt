@@ -31,6 +31,7 @@ class GetReposUseCase @Inject constructor(private val githubRepository: GithubRe
                     Observable.just(it)
                 }
             }
+
             .convertToResultOnIO()
     }
 

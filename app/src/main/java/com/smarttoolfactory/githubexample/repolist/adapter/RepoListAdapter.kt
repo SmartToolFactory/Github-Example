@@ -22,15 +22,15 @@ class RepoListAdapter(
     private val onItemClicked: (RepoListItem) -> Unit,
     private val onFavoriteStarClicked: (RepoListItem) -> Unit
 
-) :
-    ListAdapter<RepoListItem, RepoListAdapter.CustomViewHolder<RepoListItem>>(
-        RepoDiffCallback()
-    ) {
+) : ListAdapter<RepoListItem, RepoListAdapter.CustomViewHolder<RepoListItem>>(
+    RepoDiffCallback()
+) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): CustomViewHolder<RepoListItem> {
+
 
         val binding =
             DataBindingUtil.inflate<ViewDataBinding>(
@@ -40,10 +40,15 @@ class RepoListAdapter(
                 false
             )
 
-        return CustomViewHolder<RepoListItem>(binding)
+        val viewHolder = CustomViewHolder<RepoListItem>(binding)
             .apply {
                 onViewHolderCreated(this, binding)
             }
+
+
+        println("🍏 RepoListAdapter onCreateViewHolder() viewHolder: $viewHolder")
+
+        return viewHolder
     }
 
     /**
@@ -67,6 +72,9 @@ class RepoListAdapter(
 
 
     override fun onBindViewHolder(holder: CustomViewHolder<RepoListItem>, position: Int) {
+
+        println("🍎 RepoListAdapter onBindViewHolder() viewHolder: POSITION: $position, $holder")
+
         val item = getItem(position)
         holder.bindTo(item)
     }
@@ -108,13 +116,13 @@ class RepoDiffCallback : DiffUtil.ItemCallback<RepoListItem>() {
     override fun areItemsTheSame(
         oldItem: RepoListItem, newItem: RepoListItem
     ): Boolean {
-        return oldItem == newItem
+        return oldItem.repoId == newItem.repoId
     }
 
     override fun areContentsTheSame(
         oldItem: RepoListItem, newItem: RepoListItem
     ): Boolean {
-        return oldItem.repoId == newItem.repoId
+        return oldItem == newItem
     }
 
 }
